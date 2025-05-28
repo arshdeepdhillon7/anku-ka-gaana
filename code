@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Archives of Us</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', serif;
+      background: #fff6f9;
+      color: #4b2e2e;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: #ffe4ec;
+      position: relative;
+    }
+    header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    header p {
+      font-size: 1.2rem;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #d94f7a;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .petal {
+      position: absolute;
+      background: pink;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    .music-player {
+      max-width: 400px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    main {
+      max-width: 700px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #d94f7a;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    /* Timeline styling */
+    .timeline-item {
+      background: #ffe4ec;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      box-shadow: 0 3px 6px rgba(217, 79, 122, 0.2);
+    }
+    .timeline-item h3 {
+      margin-top: 0;
+      color: #b33a5e;
+    }
+    /* Bouquet styling */
+    .bouquet {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .flower {
+      background: #fff0f6;
+      border-radius: 15px;
+      width: 140px;
+      padding: 1rem;
+      box-shadow: 0 3px 8px rgba(217, 79, 122, 0.2);
+      text-align: center;
+      cursor: default;
+      position: relative;
+    }
+    .flower-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #d94f7a;
+    }
+    .flower-name {
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+      color: #b33a5e;
+    }
+    .flower-message {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #80334e;
+    }
+    /* Monthly surprises */
+    .months-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    .month-btn {
+      background: #d94f7a;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-weight: bold;
+      font-family: 'Playfair Display', serif;
+    }
+    .month-btn:hover {
+      background-color: #b33a5e;
+    }
+    .surprise-message {
+      background: #ffe4ec;
+      padding: 1rem 1.5rem;
+      border-radius: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: #7a2a43;
+      min-height: 4.5rem;
+    }
+    /* Secret Section */
+    #secret {
+      display: none;
+      background: #ffe4ec;
+      border-radius: 15px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 2rem auto;
+      text-align: center;
+      font-style: italic;
+      color: #80334e;
+      font-size: 1.1rem;
+    }
+    #passwordSection {
+      max-width: 600px;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    #passwordInput {
+      padding: 0.5rem;
+      width: 100%;
+      margin-top: 1rem;
+      border-radius: 5px;
+      border: 1px solid #d94f7a;
+      font-size: 1rem;
+    }
+    #passwordBtn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      background-color: #d94f7a;
+      border: none;
+      border-radius: 20px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+    }
+    #passwordBtn:hover {
+      background-color: #b33a5e;
+    }
+    #hint {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #666;
+      font-family: 'Playfair Display', serif;
+    }
+    #passwordMsg {
+      color: red;
+      margin-top: 0.5rem;
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Archives of Us</h1>
+    <p>Welcome to our little corner of time — soft, spicy, and soaked in stories.</p>
+    <!-- Animated petals -->
+    <script>
+      for (let i = 0; i < 30; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = 5 + Math.random() * 5 + 's';
+        petal.style.background = ['#ffc0cb', '#ffb6c1', '#ff69b4'][Math.floor(Math.random()*3)];
+        document.body.appendChild(petal);
+      }
+    </script>
+  </header>
+
+  <nav>
+    <a href="#timeline" onclick="showSection('timeline')">Timeline</a>
+    <a href="#surprises" onclick="showSection('surprises')">Monthly Surprises</a>
+    <a href="#bouquet" onclick="showSection('bouquet')">Bouquet</a>
+    <a href="#secret" onclick="showSection('passwordSection')">Secret</a>
+  </nav>
+
+  <div class="music-player">
+    <audio controls id="audioPlayer" style="width:100%; border-radius:12px;">
+      <source src="https://raw.githubusercontent.com/arshdeepdhillon7/anku-ka-gaana/main/Mokita%20-%20Lonely%20City%20(Official%20Video).mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <main>
+    <!-- Timeline Section -->
+    <section id="timeline" style="display:none;">
+      <h2>Timeline</h2>
+      <div class="timeline-item">
+        <h3>September 2020</h3>
+        <p>Here we were, meeting after being rivals for the longest time, yet yapping like it was our last day alive. It was golden, the laughter we shared and how instantly we clicked—purely magical.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>May 2021 - April 2023</h3>
+        <p>Our tuition time together. Tuition is meant for studies but we did everything except it. We debriefed things, laughed, cried, abused each other (verbally and physically), secrets were shared and feelings were built. The sheer happiness of my birthday surprise will always be cherished.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Summer 2023</h3>
+        <p>Our gym dates! We did everything except exercising. Eating right after a little sweat, cursing leg day, escaping the trainer, couple exercises, diet plans never followed — those days were precious.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Fall 2023</h3>
+        <p>Our Chandigarh dates: dressing up, buying flowers, visiting mandir, booksale, ice cream, debriefing Wednesdays, and the Taylor Swift concert movie—my favourite day ever, where I danced and sang my heart out with you.</p>
+      </div>
+    </section>
+
+    <!-- Monthly Surprises Section -->
+    <section id="surprises" style="display:none;">
+      <h2>Monthly Surprises & Dares</h2>
+      <div class="months-list">
+        <button class="month-btn" onclick="showSurprise('January')">January</button>
+        <button class="month-btn" onclick="showSurprise('February')">February</button>
+        <button class="month-btn" onclick="showSurprise('March')">March</button>
+        <button class="month-btn" onclick="showSurprise('April')">April</button>
+        <button class="month-btn" onclick="showSurprise('May')">May</button>
+        <button class="month-btn" onclick="showSurprise('June')">June</button>
+        <button class="month-btn" onclick="showSurprise('July')">July</button>
+        <button class="month-btn" onclick="showSurprise('August')">August</button>
+        <button class="month-btn" onclick="showSurprise('September')">September</button>
+        <button class="month-btn" onclick="showSurprise('October')">October</button>
+        <button class="month-btn" onclick="showSurprise('November')">November</button>
+        <button class="month-btn" onclick="showSurprise('December')">December</button>
+      </div>
+      <div id="surpriseMessage" class="surprise-message">
+        Click a month to reveal your dare!
+      </div>
+    </section>
+
+    <!-- Bouquet Section -->
+    <section id="bouquet" style="display:none;">
+      <h2>Bouquet of Flowers</h2>
+      <div class="bouquet">
+        <div class="flower" title="White Lily: Purity and refined beauty">
+          <div class="flower-icon">🌸</div>
+          <div class="flower-name">White Lily</div>
+          <div class="flower-message">Purity, refined beauty, and sweetness.</div>
+        </div>
+        <div class="flower" title="Daisy: Innocence and new beginnings">
+          <div class="flower-icon">🌼</div>
+          <div class="flower-name">Daisy</div>
+          <div class="flower-message">Innocence, purity, and new beginnings.</div>
+        </div>
+        <div class="flower" title="Rose: Love and passion">
+          <div class="flower-icon">🌹</div>
+          <div class="flower-name">Rose</div>
+          <div class="flower-message">Love, passion, and deep affection.</div>
+        </div>
+        <div class="flower" title="Yellow Pansy: Cheerfulness and joy">
+          <div class="flower-icon">🌻</div>
+          <div class="flower-name">Yellow Pansy</div>
+          <div class="flower-message">Cheerfulness, joy, and thoughtful remembrance.</div>
+        </div>
+        <div class="flower" title="Yellow Marigold: Warmth and creativity">
+          <div class="flower-icon">🌼</div>
+          <div class="flower-name">Yellow Marigold</div>
+          <div class="flower-message">Warmth, creativity, and positive energy.</div>
+        </div>
+        <div class="flower" title="Apple Blossom: Elegance and sweetness">
+          <div class="flower-icon">🍎</div>
+          <div class="flower-name">Apple Blossom</div>
+          <div class="flower-message">Elegance, sweetness, and promise.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Password & Secret Section -->
+    <section id="passwordSection" style="padding: 2rem; max-width: 600px; margin: 2rem auto; text-align:center;">
+      <h2>Enter the secret password to unlock 💌</h2>
+      <input type="password" id="passwordInput" placeholder="Enter password" />
+      <button id="passwordBtn">Unlock Secret</button>
+      <p id="hint">Hint: 23 April</p>
+      <p id="passwordMsg"></p>
+    </section>
+
+    <section id="secret">
+      <h2>Secret Section 🔐</h2>
+      <p>
+        okay i have never told you this but i have actually received a hickey from sher.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    // Show/Hide sections on nav click
+    function showSection(sectionId) {
+      const sections = ['timeline', 'surprises', 'bouquet', 'secret', 'passwordSection'];
+      sections.forEach(id => {
+        document.getElementById(id).style.display = (id === sectionId) ? 'block' : 'none';
+      });
+    }
+    // Start showing timeline by default
+    showSection('timeline');
+
+    // Monthly surprises messages (dares)
+    const surprises = {
+      January: "Try writing a poem about us in under 5 minutes.",
+      February: "Send me a spicy emoji-only text and see if I can guess the meaning.",
+      March: "Wear your quirkiest outfit and share a selfie with me.",
+      April: "Share a secret childhood story you haven't told me before.",
+      May: "Sing your favorite song aloud and record it for me.",
+      June: "Draw a doodle that reminds you of us and share a pic.",
+      July: "Compliment me using only movie quotes for one day.",
+      August: "Write a mini story starring us as main characters.",
+      September: "Dance for 30 seconds to our favorite song and send the video.",
+      October: "Send me a spicy riddle and challenge me to solve it.",
+      November: "Share a secret that you have never told me.",
+      December: "Write a letter to your future self and share it with me."
+    };
+
+    function showSurprise(month) {
+      const msg = surprises[month] || "No surprise for this month.";
+      document.getElementById('surpriseMessage').textContent = msg;
+    }
+
+    // Password and secret reveal
+    const password = "hyunam-dong";
+    const secretSection = document.getElementById("secret");
+    const passwordSection = document.getElementById("passwordSection");
+    const passwordBtn = document.getElementById("passwordBtn");
+    const passwordInput = document.getElementById("passwordInput");
+    const passwordMsg = document.getElementById("passwordMsg");
+
+    passwordBtn.addEventListener("click", () => {
+      if(passwordInput.value.trim().toLowerCase() === password) {
+        secretSection.style.display = "block";
+        passwordSection.style.display = "none";
+        passwordMsg.textContent = "";
+      } else {
+        passwordMsg.textContent = "Incorrect password. Try again!";
+      }
+    });
+  </script>
+</body>
+</html>
